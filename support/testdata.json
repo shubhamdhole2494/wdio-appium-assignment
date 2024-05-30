@@ -4,7 +4,7 @@
       "username" : "bob@example.com",
       "password" : "10203040"
     },
-    "InvalidUsername" : {
+    "invalidUsername" : {
       "username" : "b@example.com",
       "password" : "10203040"
     }

@@ -19,6 +19,21 @@ Then(/^I should login successfully$/, async () => {
 
     let homeScreenHeaderText = await LoginScreen.validateUserLoggedInSuccessfully();
     expect(homeScreenHeaderText).to.be.equal('Products')
+    await driver.reloadSession();
 });
+When(/^I enter invalid username and valid password$/, async () => {
+
+    await LoginScreen.loginWithInvalidCredentials(testData.invalidUsername.username, testData.invalidUsername.password)
+
+});
+Then(/^I should get error message$/, async () => {
+
+    let errorMsgWrongusrText = await LoginScreen.validateErrorMessage();
+    expect(errorMsgWrongusrText).to.be.equal('Provided credentials do not match any user in this service.')
+    await driver.reloadSession();
+});
+
+
+
 
 

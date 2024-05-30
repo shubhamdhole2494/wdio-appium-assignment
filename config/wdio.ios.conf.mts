@@ -38,7 +38,7 @@ export const config: Options.Testrunner = {
     framework: 'cucumber',
     cucumberOpts: {
           require: ["./step_definitions/*.ts"],
-          timeout: 60000,
+          timeout: 60000,  
     },
   autoCompileOpts: {
       autoCompile: true,
