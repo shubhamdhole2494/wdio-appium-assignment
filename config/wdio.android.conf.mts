@@ -15,7 +15,7 @@ export const config: Options.Testrunner = {
     "appium:automationName": "uiautomator2",
     "appium:udid": "emulator-5554",
     "appium:platformVersion": "10.0",
-    "appium:app": "./Android-MyDemoAppRN.1.3.0.build-244.apk",
+    "appium:app": "./app/Android-MyDemoAppRN.1.3.0.build-244.apk",
     "appium:waitForIdleTimeout": 3000,
   }],
 
@@ -25,7 +25,8 @@ export const config: Options.Testrunner = {
   reporters: ['spec', ['allure', {
     outputDir: 'allure-results',
     disableWebdriverStepsReporting: true,
-    disableWebdriverScreenshotsReporting: false
+    disableWebdriverScreenshotsReporting: false,
+    useCucumberStepReporter: true
   }]],
   bail: 0,
   baseUrl: 'http://localhost',

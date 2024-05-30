@@ -16,7 +16,7 @@ export const config: Options.Testrunner = {
         "appium:udid": "25EC4E49-18FC-4492-8090-1449E7F927C2",
        
         "appium:orientation": "PORTRAIT",
-        "appium:app": "./MyRNDemoApp 2.app",
+        "appium:app": "./app/MyRNDemoApp 2.app",
         "appium:waitForIdleTimeout" : 3000
     }],
   
@@ -28,6 +28,7 @@ export const config: Options.Testrunner = {
             outputDir: './allure-results',
             disableWebdriverStepsReporting: true,
             disableWebdriverScreenshotsReporting: true,
+            useCucumberStepReporter: true
         }],],
     bail: 0,
     baseUrl: 'http://localhost',

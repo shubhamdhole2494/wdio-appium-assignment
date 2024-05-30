@@ -3,5 +3,9 @@
     "loginCreds" : {
       "username" : "bob@example.com",
       "password" : "10203040"
+    },
+    "InvalidUsername" : {
+      "username" : "b@example.com",
+      "password" : "10203040"
     }
 }
