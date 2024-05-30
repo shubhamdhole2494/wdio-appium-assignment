@@ -29,9 +29,24 @@ When(/^I enter invalid username and valid password$/, async () => {
 Then(/^I should get error message$/, async () => {
 
     let errorMsgWrongusrText = await LoginScreen.validateErrorMessage();
-    expect(errorMsgWrongusrText).to.be.equal('Provided credentials do not match any user in this service.')
+    expect(errorMsgWrongusrText).to.be.equal('Provided credentials do not match any user in this service.');
+    await driver.pause(5000);
     await driver.reloadSession();
 });
+When(/^I enter lock user credentials$/, async () => {
+
+    await LoginScreen.loginWithLockCredentials(testData.lockUsername.username, testData.lockUsername.password)
+
+});
+Then(/^I should get lock error message$/, async () => {
+
+    let errorMsgLockUsrText = await LoginScreen.validateLockUserErrorMsg();
+    expect(errorMsgLockUsrText).to.be.equal('Sorry, this user has been locked out.');
+    await driver.reloadSession();
+
+});
+
+
 
 
 

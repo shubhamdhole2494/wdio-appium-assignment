@@ -9,7 +9,9 @@ export  class BasePage {
         this.locator = locator;
         this.uiElement = $(locator);
     }
-
+    /* 
+    Common used methods which required methos 
+    */
     async click() {
         await (await this.uiElement).click();
     }

@@ -10,7 +10,10 @@ export class BaseAppElement {
         return new BasePage(locator);
     }
 }
-
+/*
+Store all elements for Android and iOS 
+Variable name ending with APK is for Android and IPK for iOS
+*/
 const SELECTORS:any= {
     loginScreenMenuBtnAPK: '//android.view.ViewGroup[@content-desc="open menu"]/android.widget.ImageView',
     loginScreenMenuBtnIPA: `//XCUIElementTypeButton[@name="tab bar option menu"]`,
@@ -24,13 +27,16 @@ const SELECTORS:any= {
     loginBtn1IPA: `//XCUIElementTypeOther[@name="Login button"]`,
     homeScreenHeaderAPK: '//android.view.ViewGroup[@content-desc="container header"]/android.widget.TextView',
     homeScreenHeaderIPA: `//XCUIElementTypeStaticText[@name="Products"]`,
-    errorMsgWrongusrIPA: `//XCUIElementTypeStaticText[@name="Provided credentials do not match any user in this service."]`
-   
-
-    
+    errorMsgWrongusrAPK: `//android.widget.TextView[@text="Provided credentials do not match any user in this service."]`,
+    errorMsgWrongusrIPA: `//XCUIElementTypeStaticText[@name="Provided credentials do not match any user in this service."]`,
+    errorMsgLockUsrAPK: '//android.widget.TextView[@text="Sorry, this user has been locked out."]',
+    errorMsgLockUsrIPA: '//XCUIElementTypeStaticText[@name="Sorry, this user has been locked out."]',    
 };
 
-
+/* 
+Create method to call while executing test cases which is common for Android and iOS
+It will check the platform while executing
+*/
 export class LoginScreen extends BaseAppElement{
 
     static loginScreenMenuBtn() { return this.Element(SELECTORS[`loginScreenMenuBtn${platform}`]) };
@@ -40,13 +46,18 @@ export class LoginScreen extends BaseAppElement{
     static loginBtn1() { return this.Element(SELECTORS[`loginBtn1${platform}`]) };
     static homeScreenHeader() { return this.Element(SELECTORS[`homeScreenHeader${platform}`]) };
     static errorMsgWrongusr() {return this.Element(SELECTORS[`errorMsgWrongusr${platform}`])};
+    static errorMsgLockUsr(){return this.Element(SELECTORS[`errorMsgLockUsr${platform}`])}
  
-
+    /*
+    Validate Login screen is display or not 
+    */
     static async validateLoginScreen(){
         await this.loginScreenMenuBtn().waitForDisplayed();
         return await this.loginScreenMenuBtn().isDisplayed();
     }
-
+    /*
+    Method to navigate Login page and Enter Username and credentilas
+    */
     static async loginWithValidCredentials(userName:string,password:string){
        await this.loginScreenMenuBtn().click();
        await this.loginBtn().waitForDisplayed();
@@ -60,7 +71,9 @@ export class LoginScreen extends BaseAppElement{
        await this.homeScreenHeader().waitForDisplayed();
 
     }
-
+    /*
+    Method To get Error message when user pass Invalid Credentilas
+    */
     static async loginWithInvalidCredentials(userName:string,password:string){
         await this.loginScreenMenuBtn().click();
         await this.loginBtn().waitForDisplayed();
@@ -72,18 +85,43 @@ export class LoginScreen extends BaseAppElement{
         await this.loginBtn1().waitForEnabled();
         await this.loginBtn1().click();
         await this.errorMsgWrongusr().waitForDisplayed();
-        
- 
+     }
+     /*
+     Method to get Lock User Error Message 
+     */
+     static async loginWithLockCredentials(userName:string,password:string){
+        await this.loginScreenMenuBtn().click();
+        await this.loginBtn().waitForDisplayed();
+        await this.loginBtn().click();
+        await this.usernameInputField().waitForDisplayed();
+        await driver.pause(5000);
+        await this.usernameInputField().addValue(userName);
+        await this.passwordInputField().addValue(password);
+        await this.loginBtn1().waitForEnabled();
+        await this.loginBtn1().click();
+        await this.errorMsgLockUsr().waitForDisplayed();
      }
    
-
+     /*
+     Validate Login successful Message
+     */
     static async validateUserLoggedInSuccessfully(){
         await this.homeScreenHeader().waitForDisplayed();
         return  await this.homeScreenHeader().getVisibleText();
     }
+    /*
+    Validate Error Message when usr pass wrong username and Password
+    */
     static async validateErrorMessage(){
         await this.errorMsgWrongusr().waitForDisplayed();
         return await this.errorMsgWrongusr().getVisibleText();
+    }
+    /*
+    Validate Lock user error message
+    */
+    static async validateLockUserErrorMsg(){
+        await this.errorMsgLockUsr().waitForDisplayed();
+        return await this.errorMsgLockUsr().getVisibleText();
     }
 
 }

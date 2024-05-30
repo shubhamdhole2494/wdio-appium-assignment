@@ -14,7 +14,6 @@ export const config: Options.Testrunner = {
         "appium:deviceName": "iPhone 15",
         "appium:platformVersion": "17.2",
         "appium:udid": "25EC4E49-18FC-4492-8090-1449E7F927C2",
-       
         "appium:orientation": "PORTRAIT",
         "appium:app": "./app/MyRNDemoApp 2.app",
         "appium:waitForIdleTimeout" : 3000
