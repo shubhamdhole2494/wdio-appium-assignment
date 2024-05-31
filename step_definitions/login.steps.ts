@@ -45,6 +45,21 @@ Then(/^I should get lock error message$/, async () => {
     await driver.reloadSession();
 
 });
+When(/^I enter blank username$/, async () => {
+
+    await LoginScreen.loginWithBlankUsername(testData.blankUsername.username, testData.blankUsername.password)
+
+});
+Then(/^I should get required username error$/, async () => {
+
+    let errorMsgBlankUsrText = await LoginScreen.validateBlankUsrMsg();
+    expect(errorMsgBlankUsrText).to.be.equal('Username is required');
+    await driver.reloadSession();
+
+});
+
+
+
 
 
 

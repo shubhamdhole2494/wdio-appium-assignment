@@ -11,5 +11,9 @@
     "lockUsername" : {
       "username" : "alice@example.com",
       "password" : "10203040"
+    },
+    "blankUsername" : {
+      "username" : "",
+      "password" : ""
     }
 }

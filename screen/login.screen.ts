@@ -30,7 +30,9 @@ const SELECTORS:any= {
     errorMsgWrongusrAPK: `//android.widget.TextView[@text="Provided credentials do not match any user in this service."]`,
     errorMsgWrongusrIPA: `//XCUIElementTypeStaticText[@name="Provided credentials do not match any user in this service."]`,
     errorMsgLockUsrAPK: '//android.widget.TextView[@text="Sorry, this user has been locked out."]',
-    errorMsgLockUsrIPA: '//XCUIElementTypeStaticText[@name="Sorry, this user has been locked out."]',    
+    errorMsgLockUsrIPA: '//XCUIElementTypeStaticText[@name="Sorry, this user has been locked out."]',
+    errorMsgBlankUsrAPK: '//android.widget.TextView[@text="Username is required"]',
+    errorMsgBlankUsrIPA: '//XCUIElementTypeStaticText[@name="Username is required"]'    
 };
 
 /* 
@@ -46,7 +48,8 @@ export class LoginScreen extends BaseAppElement{
     static loginBtn1() { return this.Element(SELECTORS[`loginBtn1${platform}`]) };
     static homeScreenHeader() { return this.Element(SELECTORS[`homeScreenHeader${platform}`]) };
     static errorMsgWrongusr() {return this.Element(SELECTORS[`errorMsgWrongusr${platform}`])};
-    static errorMsgLockUsr(){return this.Element(SELECTORS[`errorMsgLockUsr${platform}`])}
+    static errorMsgLockUsr(){return this.Element(SELECTORS[`errorMsgLockUsr${platform}`])};
+    static errorMsgBlankUsr(){return this.Element(SELECTORS[`errorMsgBlankUsr${platform}`])};
  
     /*
     Validate Login screen is display or not 
@@ -101,6 +104,21 @@ export class LoginScreen extends BaseAppElement{
         await this.loginBtn1().click();
         await this.errorMsgLockUsr().waitForDisplayed();
      }
+    /*
+    Method to get Blank Error Message
+    */
+    static async loginWithBlankUsername(userName:string,password:string){
+        await this.loginScreenMenuBtn().click();
+        await this.loginBtn().waitForDisplayed();
+        await this.loginBtn().click();
+        await this.usernameInputField().waitForDisplayed();
+        await driver.pause(5000);
+        await this.usernameInputField().addValue(userName);
+        await this.passwordInputField().addValue(password);
+        await this.loginBtn1().waitForEnabled();
+        await this.loginBtn1().click();
+        await this.errorMsgBlankUsr().waitForDisplayed();
+    }
    
      /*
      Validate Login successful Message
@@ -122,6 +140,11 @@ export class LoginScreen extends BaseAppElement{
     static async validateLockUserErrorMsg(){
         await this.errorMsgLockUsr().waitForDisplayed();
         return await this.errorMsgLockUsr().getVisibleText();
+    }
+
+    static async validateBlankUsrMsg(){
+        await this.errorMsgBlankUsr().waitForDisplayed();
+        return await this.errorMsgBlankUsr().getVisibleText();
     }
 
 }
