@@ -15,5 +15,5 @@
   "include": [
       "./config/**/*.ts",
       "./tests/**/*.ts"
-, "config/wdio.android.conf.mts", "config/wdio.ios.conf.mts"  ]
+, "config/wdio.android.conf.mts", "config/wdio.ios.conf.mts"  ] 
 }
