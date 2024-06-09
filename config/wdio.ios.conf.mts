@@ -42,6 +42,10 @@ export const config: Options.Testrunner = {
     require: ["./step_definitions/*.ts"],
     timeout: 60000,
   },
+  afterScenario: async function (world, result, context) {
+    await driver.pause(5000);
+    await driver.reloadSession();
+    },
   autoCompileOpts: {
     autoCompile: true,
     tsNodeOpts: {

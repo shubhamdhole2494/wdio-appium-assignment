@@ -17,7 +17,7 @@ Then(/^I should login successfully$/, async () => {
   let homeScreenHeaderText =
     await LoginScreen.validateUserLoggedInSuccessfully();
   expect(homeScreenHeaderText).to.be.equal("Products");
-  await driver.reloadSession();
+  
 });
 When(/^I enter invalid username and valid password$/, async () => {
   await LoginScreen.loginWithInvalidCredentials(
@@ -30,8 +30,7 @@ Then(/^I should get error message$/, async () => {
   expect(errorMsgWrongusrText).to.be.equal(
     "Provided credentials do not match any user in this service."
   );
-  await driver.pause(5000);
-  await driver.reloadSession();
+
 });
 When(/^I enter lock user credentials$/, async () => {
   await LoginScreen.loginWithLockCredentials(
@@ -44,7 +43,7 @@ Then(/^I should get lock error message$/, async () => {
   expect(errorMsgLockUsrText).to.be.equal(
     "Sorry, this user has been locked out."
   );
-  await driver.reloadSession();
+  
 });
 When(/^I enter blank username$/, async () => {
   await LoginScreen.loginWithBlankUsername(
@@ -55,7 +54,7 @@ When(/^I enter blank username$/, async () => {
 Then(/^I should get required username error$/, async () => {
   let errorMsgBlankUsrText = await LoginScreen.validateBlankUsrMsg();
   expect(errorMsgBlankUsrText).to.be.equal("Username is required");
-  await driver.reloadSession();
+  
 });
 When(/^I enter blank password$/, async () => {
   await LoginScreen.loginWithBlankPassword(
@@ -66,5 +65,4 @@ When(/^I enter blank password$/, async () => {
 Then(/^I should get required password error$/, async () => {
   let errorMsgBlankPassText = await LoginScreen.validateBlankPassMsg();
   expect(errorMsgBlankPassText).to.be.equal("Password is required");
-  await driver.reloadSession();
 });
